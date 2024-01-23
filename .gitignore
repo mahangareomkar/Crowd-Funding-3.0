@@ -1,0 +1,7 @@
+/contract/node_modules
+/contract/deployedContractAddress.txt
+/contract/artifacts
+/contract/cache
+/contract/.env
+/crowdfunding/node_modules
+/crowdfunding/.env
