@@ -3,5 +3,7 @@
 /contract/artifacts
 /contract/cache
 /contract/.env
+/contract/coverage.json
+/contract/coverage/
 /crowdfunding/node_modules
 /crowdfunding/.env

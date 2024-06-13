@@ -9,16 +9,16 @@ import { abi, address } from '../../constants/contractAbi';
 import { parseEther } from "viem";
 
 const Home = () => {
-    const result = useContractRead({
+    const { data: result } = useContractRead({
         abi,
         address,
         functionName: 'getCampaigns',
     })
     const { allCampaigns } = useSelector(state => state.campaigns);
     const dispatch = useDispatch();
-    console.log(allCampaigns)
+    console.log(result)
     useEffect(() => {
-        dispatch(setCampaigns(result.data));
+        dispatch(setCampaigns(result));
     }, [result])
 
 
@@ -31,22 +31,22 @@ const Home = () => {
             </section>
             <section className="grid grid-cols-4 max-sm:grid-cols-1 gap-x-4 p-4 gap-y-4">
                 {
-                    allCampaigns.map((campaign) => {
+                    allCampaigns?.map((campaign) => {
                         return <Link to={`campaigns/${parseInt(campaign.id)}`}>
                             <CampaignCard id={parseInt(campaign.id)} name={campaign.title} description={campaign.description} imgURL={campaign.image} balance={parseFloat(campaign.amountCollected)} target={parseFloat(campaign.target)} owner={campaign.owner} deadline={campaign.deadline} />
                         </Link>
                     })
                 }
-                <Link to="campaigns/">
+                <Link to="campaigns/12">
                     <CampaignCard name="Event1" description="Hello this is the first event of " imgURL={"./events/anime-solo-leveling-sung-jin-woo-hd-wallpaper-preview.jpg"} balance={4.4} target={10} owner={"0x123nbdbedhjfb32423bh"} />
                 </Link>
-                <Link to="campaigns/">
+                <Link to="campaigns/13">
                     <CampaignCard name="Event1" description="Hello this is the first event of " imgURL={"./events/anime-solo-leveling-sung-jin-woo-hd-wallpaper-preview.jpg"} balance={4.4} target={10} owner={"0x123nbdbedhjfb32423bh"} />
                 </Link>
-                <Link to="campaigns/">
+                <Link to="campaigns/14">
                     <CampaignCard name="Event1" description="Hello this is the first event of " imgURL={"./events/anime-solo-leveling-sung-jin-woo-hd-wallpaper-preview.jpg"} balance={4.4} target={10} owner={"0x123nbdbedhjfb32423bh"} />
                 </Link>
-                <Link to="campaigns/">
+                <Link to="campaigns/15">
                     <CampaignCard name="Event1" description="Hello this is the first event of " imgURL={"./events/anime-solo-leveling-sung-jin-woo-hd-wallpaper-preview.jpg"} balance={4.4} target={10} owner={"0x123nbdbedhjfb32423bh"} />
                 </Link>
             </section>

@@ -8,7 +8,6 @@ const campaignsSlice = createSlice({
     },
     reducers: {
         setCampaigns: (state, action) => {
-            console.log("hi");
             state.allCampaigns = action.payload;
         },
         getCurrentCampaign: (state, action) => {

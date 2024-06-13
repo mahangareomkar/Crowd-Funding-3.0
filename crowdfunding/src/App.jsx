@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import { Navbar } from './components';
-import { Home, Campaign, CreateCampaign, } from './pages'
+import { Home, Campaign, CreateCampaign, MyCampaigns, } from './pages'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,10 +13,13 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='' element={<Home />}></Route>
-          <Route path='campaigns' element={<Campaign />}></Route>
+          <Route path='campaigns/:id' element={<Campaign />}></Route>
           <Route path='create_campaign' element={<CreateCampaign />}></Route>
-          {/* <Route path='profile' element={<Profile />}></Route> */}
+          <Route path='my-campaigns' element={<MyCampaigns />}></Route>
         </Routes>
+        <footer className='bg-slate-950 flex justify-center items-center'>
+          <p className='text-xl text-white font-mono font-semibold py-4'>Developed By Devil</p>
+        </footer>
       </div>
     </Router>
   )

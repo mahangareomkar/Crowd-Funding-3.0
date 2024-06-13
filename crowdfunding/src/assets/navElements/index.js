@@ -1,7 +1,7 @@
 import closemark from './closemark.svg';
 import createCampaign from './create-campaign.svg';
 import dashboard from './dashboard.svg';
-import logo from './logo.svg';
+// import logo from 'sun.svg';
 import logout from './logout.svg';
 import myCampaigns from './my-campaigns.svg';
 import payment from './payment.svg';
@@ -13,14 +13,13 @@ import search from './search.svg';
 import menu from './menu.svg';
 import money from './money.svg';
 import loader from './loader.svg';
-import thirdweb from './thirdweb.png';
 
 export {
   closemark,
   tagType,
   createCampaign,
   dashboard,
-  logo,
+  // logo,
   logout,
   myCampaigns,
   payment,
@@ -31,5 +30,4 @@ export {
   menu,
   money,
   loader,
-  thirdweb,
 };
