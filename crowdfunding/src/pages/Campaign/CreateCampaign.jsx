@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useContractWrite } from 'wagmi';
 import { abi, address } from "../../constants/contractAbi";
+import { useNavigate } from "react-router-dom";
 
 const CreateCampaign = () => {
     const [credentails, setCredentials] = useState({ "title": "", "description": "", "image": "", "target": 0, "deadline": "" });
-    // const { writeContract } = useWriteContract()
+    const navigate = useNavigate();
     const { data, isLoading, isSuccess, write } = useContractWrite({
         address,
         abi,
@@ -15,11 +16,11 @@ const CreateCampaign = () => {
         setCredentials({ ...credentails, [e.target.name]: e.target.value });
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async(e) => {
         e.preventDefault();
         console.log(Date.parse(credentails.deadline));
         console.log(isLoading, isSuccess);
-        write({
+        await write({
             args: [
                 credentails.title,
                 credentails.description,
@@ -28,7 +29,11 @@ const CreateCampaign = () => {
                 credentails.image
             ]
         })
-        console.log(isLoading, isSuccess);
+
+        console.log(isSuccess);
+        if(isSuccess){
+            navigate("/");
+        }
     }
 
     return (
@@ -47,7 +52,7 @@ const CreateCampaign = () => {
                     <label htmlFor="target">Deadline :</label>
                     <input type="date" name="deadline" value={credentails.deadline} className="w-60 text-center text-xl text-white bg-slate-950 py-2 border-2 border-emerald-500 rounded-full max-sm:text-lg max-sm:py-1 max-sm:w-40" onChange={credentailsChanger} />
                 </div>
-                <input type="submit" value="Submit" className="text-xl py-2 bg-emerald-500 rounded-full" />
+                <input type="submit" value={isLoading===true?"Loading":"Create"} className="text-xl py-2 bg-emerald-500 rounded-full" />
             </form>
         </section>
     )

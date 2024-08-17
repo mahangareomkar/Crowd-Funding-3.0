@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
-import { useAccount, useContractWrite, useSendTransaction } from "wagmi";
+import { useAccount, useContractWrite, useContractRead } from "wagmi";
 import { abi, address } from "../../constants/contractAbi";
 import { concat, parseEther } from "viem";
+import { setCampaigns } from "../../redux/features/campaigns/campaignsSlice";
 
 const Campaign = () => {
     const { allCampaigns } = useSelector((state) => state.campaigns)
     const { id } = useParams();
     const [campaign, setCampaign] = useState(null)
     const [donation, setDonation] = useState(0.1);
-    const { address } = useAccount();
+    const { address:accountAddress } = useAccount();
+    const {status,setStatus} = useState(false);
+    const dispatch = useDispatch();
 
+    const { data: result } = useContractRead({
+        abi,
+        address,
+        functionName: 'getCampaigns',
+    })
+    
     const { data: hash, isLoading, isError, isSuccess, write } = useContractWrite({
         address,
         abi,
@@ -22,26 +31,54 @@ const Campaign = () => {
 
     useEffect(() => {
         let found = false;
-        for (let i = 0; i < allCampaigns.length; i++) {
-            if (parseInt(allCampaigns[i].id) === parseInt(id)) {
-                setCampaign(allCampaigns[i]);
-                found = true;
-                break;
-            }
-        }
+        // for (let i = 0; i < allCampaigns.length; i++) {
+        //     if (parseInt(allCampaigns[i].id) === parseInt(id)) {
+        //         setCampaign(allCampaigns[i]);
+        //         found = true;
+        //         break;
+        //     }
+        // }
 
         if (!found) {
             // Fetch the campaign
+            for (let i = 0; i < result.length; i++) {
+                if (parseInt(result[i].id) === parseInt(id)) {
+                    setCampaign(result[i]);
+                    found = true;
+                    break;
+                }
+            }
         }
     }, [id])
 
+    useEffect(()=>{
+        
+        dispatch(setCampaigns(result));
+
+        for (let i = 0; i < result.length; i++) {
+            if (parseInt(result[i].id) === parseInt(id)) {
+                setCampaign(result[i]);
+                break;
+            }
+        }
+    },[status])
+
     const donationHandler = () => {
         console.log(donation.toString())
+        try{
+            const tx = write({
+                args: [id],
+                value: parseEther(donation.toString())
+            })
 
-        write({
-            args: [id],
-            value: parseEther(donation.toString())
-        })
+            if(tx){
+                setStatus(true);
+            }
+
+        }catch(error){
+            alert("Error")
+            setStatus(false)
+        }
     }
 
     return (
