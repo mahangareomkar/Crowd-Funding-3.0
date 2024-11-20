@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContractWrite } from 'wagmi';
 import { abi, address } from "../../constants/contractAbi";
 import { useNavigate } from "react-router-dom";
@@ -18,8 +18,6 @@ const CreateCampaign = () => {
 
     const submitHandler = async(e) => {
         e.preventDefault();
-        console.log(Date.parse(credentails.deadline));
-        console.log(isLoading, isSuccess);
         await write({
             args: [
                 credentails.title,
@@ -29,12 +27,13 @@ const CreateCampaign = () => {
                 credentails.image
             ]
         })
+    }
 
-        console.log(isSuccess);
+    useEffect(()=>{
         if(isSuccess){
             navigate("/");
         }
-    }
+    },[isSuccess])
 
     return (
         <section className="px-8 py-4">

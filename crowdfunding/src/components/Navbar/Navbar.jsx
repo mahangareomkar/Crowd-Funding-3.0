@@ -19,7 +19,7 @@ const Navbar = () => {
                     (account.status === "connected") &&
                     <>
                         <Link to="/my-campaigns" className="text-base font-medium hover:text-emerald-500 max-sm:hidden">My Campaigns</Link>
-                        <Link to="/profile" className="text-base font-medium hover:text-emerald-500 max-sm:hidden">Profile</Link>
+                        {/* <Link to="/profile" className="text-base font-medium hover:text-emerald-500 max-sm:hidden">Profile</Link> */}
                         <button className="bg-emerald-500 text-white px-4 py-1 font-medium rounded-lg hover:bg-slate-900 hover:text-white max-sm:hidden" onClick={() => { navigate("create_campaign") }}>Create Campaign</button>
                     </>
                 }
@@ -32,7 +32,7 @@ const Navbar = () => {
                     {
                         menuListed && <>
                             <Link to="create_campaign" className="bg-emerald-500 p-3 rounded-full hover:bg-slate-950"><img src={createCampaign} className="w-6 h-6" /></Link>
-                            <Link to="profile" className="bg-emerald-500 p-3 rounded-full hover:bg-slate-950"><img src={profile} className="w-6 h-6" /></Link>
+                            {/* <Link to="profile" className="bg-emerald-500 p-3 rounded-full hover:bg-slate-950"><img src={profile} className="w-6 h-6" /></Link> */}
                             <Link to="/my_campaigns" className="bg-emerald-500 p-3 rounded-full hover:bg-slate-950"><img src={myCampaigns} className="w-6 h-6" /></Link>
                         </>
                     }

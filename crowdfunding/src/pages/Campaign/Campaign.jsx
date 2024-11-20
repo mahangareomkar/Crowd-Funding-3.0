@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAccount, useContractWrite, useContractRead } from "wagmi";
 import { abi, address } from "../../constants/contractAbi";
 import { concat, parseEther } from "viem";
-import { setCampaigns } from "../../redux/features/campaigns/campaignsSlice";
+import { setAllCampaigns } from "../../redux/features/campaigns/campaignsSlice";
 
 const Campaign = () => {
     const { allCampaigns } = useSelector((state) => state.campaigns)
@@ -27,7 +27,7 @@ const Campaign = () => {
         functionName: 'donate',
     })
 
-    console.log(id)
+
 
     useEffect(() => {
         let found = false;
@@ -52,19 +52,16 @@ const Campaign = () => {
     }, [id])
 
     useEffect(()=>{
-        
-        dispatch(setCampaigns(result));
-
-        for (let i = 0; i < result.length; i++) {
-            if (parseInt(result[i].id) === parseInt(id)) {
-                setCampaign(result[i]);
-                break;
-            }
-        }
+        dispatch(setAllCampaigns(result));
     },[status])
 
+    useEffect(()=>{
+        if(isSuccess){
+            setCampaign({...campaign,amountCollected:parseEther(((parseInt(campaign?.amountCollected) / 10e17)+donation).toString())})
+        }
+    },[isSuccess])
+
     const donationHandler = () => {
-        console.log(donation.toString())
         try{
             const tx = write({
                 args: [id],
@@ -90,7 +87,7 @@ const Campaign = () => {
             <section className="col-span-1 grid grid-cols-2 gap-3 max-sm:col-span-4">
                 <div className="col-span-2 border-2 border-emerald-500 rounded-full flex flex-col justify-center items-center py-1 text-2xl text-white max-sm:text-lg max-sm:col-span-1">
                     <p className="">Balance</p>
-                    <p className="">{campaign !== null ? parseInt(campaign?.amountCollected) / 10e18 : 0} <span className="text-lg text-emerald-500 max-sm:text-sm">ethers</span></p>
+                    <p className="">{campaign !== null ? parseInt(campaign?.amountCollected) / 10e17 : 0} <span className="text-lg text-emerald-500 max-sm:text-sm">ethers</span></p>
                 </div>
                 <div className="col-span-2 border-2 border-emerald-500 rounded-full flex flex-col justify-center items-center py-1 text-2xl text-white max-sm:text-lg max-sm:col-span-1">
                     <p className="">Target</p>

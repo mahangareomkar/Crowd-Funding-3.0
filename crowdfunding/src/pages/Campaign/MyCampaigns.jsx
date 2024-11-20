@@ -5,7 +5,7 @@ import { useAccount } from "wagmi";
 import { Link } from "react-router-dom";
 
 const MyCampaigns = () => {
-    const [campaigns, setCampaigns] = useState(null);
+    const [campaigns, setCampaigns] = useState([]);
     const { allCampaigns } = useSelector(state => state.campaigns);
     const { address } = useAccount();
 
@@ -18,7 +18,7 @@ const MyCampaigns = () => {
     return (
         <div className="min-h-[81vh] max-sm:px-4 md:px-16 py-2">
             <section className="flex flex-row justify-between items-center border-b-2 pb-4 border-white">
-                <h1 className="text-2xl text-white font-epilogue font-semibold max-sm:text-lg">My Campaigns ({60})</h1>
+                <h1 className="text-2xl text-white font-epilogue font-semibold max-sm:text-lg">My Campaigns ({campaigns.length})</h1>
                 <input type="search" placeholder="Search" className="w-1/4 text-center bg-slate-800 text-lg py-1 px-3 rounded-full max-sm:hidden" />
                 <img src={search} className="md:hidden" />
             </section>

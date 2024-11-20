@@ -24,8 +24,6 @@ import {
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
-console.log(process.env.ALCHEMY_ID)
-
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, hardhat],
   [

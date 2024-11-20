@@ -8,7 +8,7 @@ const CampaignCard = ({ name, description, imgURL, balance, target, owner }) => 
             <p className="px-2 text-slate-400 text-base line-clamp-3 break-all">{description}</p>
             <div className="w-full px-4 py-2 flex flex-row justify-between">
                 <div className="flex flex-col justify-start items-start text-base font-medium">
-                    <p className="text-white font-medium">{balance / 10e18} ethers</p>
+                    <p className="text-white font-medium">{balance / 10e17} ethers</p>
                     <p className="text-slate-400">Raised till now</p>
                 </div>
                 <div className="flex flex-col justify-start items-start text-base font-medium">

@@ -5,7 +5,6 @@ import { Navbar } from './components';
 import { Home, Campaign, CreateCampaign, MyCampaigns, } from './pages'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <Router>
@@ -18,7 +17,7 @@ function App() {
           <Route path='my-campaigns' element={<MyCampaigns />}></Route>
         </Routes>
         <footer className='bg-slate-950 flex justify-center items-center'>
-          <p className='text-xl text-white font-mono font-semibold py-4'>Developed By Devil</p>
+          <p className='text-xl text-white font-mono font-semibold py-4'>Developed By Devil ( Omkar ) </p>
         </footer>
       </div>
     </Router>

@@ -7,7 +7,7 @@ const campaignsSlice = createSlice({
         currentCampaign: null,
     },
     reducers: {
-        setCampaigns: (state, action) => {
+        setAllCampaigns: (state, action) => {
             state.allCampaigns = action.payload;
         },
         getCurrentCampaign: (state, action) => {
@@ -20,6 +20,6 @@ const campaignsSlice = createSlice({
     }
 })
 
-export const { setCampaigns, getCurrentCampaign } = campaignsSlice.actions;
+export const { setAllCampaigns, getCurrentCampaign } = campaignsSlice.actions;
 
 export default campaignsSlice.reducer;
